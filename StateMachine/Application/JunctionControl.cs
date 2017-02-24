@@ -1,37 +1,62 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace StateMachine.Application
 {
     public class JunctionControl : IJunctionControl
     {
-		public ITrafficLight North { get; set; }
-		public ITrafficLight East { get; set; }
-		public ITrafficLight South { get; set; }
-		public ITrafficLight West { get; set; }
+		private ITrafficLight North { get; set; }
+		private ITrafficLight East { get; set; }
+		private ITrafficLight South { get; set; }
+		private ITrafficLight West { get; set; }
 
 		public JunctionControl(ITrafficLightFactory factory)
+		{
+			BootstrapJunction(factory);
+		}
+
+		private void BootstrapJunction(ITrafficLightFactory factory)
+		{
+			InitializeTrafficLights(factory);
+			WireUpNorth();
+			WireUpEast();
+			WireUpSouth();
+			WireUpWest();
+		}
+
+		private void WireUpWest()
+		{
+			West.AddOtherLights(North)
+				.AddOtherLights(East)
+				.AddOtherLights(South);
+		}
+
+		private void WireUpEast()
+		{
+			East.AddOtherLights(North)
+				.AddOtherLights(South)
+				.AddOtherLights(West);
+		}
+
+		private void WireUpSouth()
+		{
+			South.AddOtherLights(North)
+				.AddOtherLights(East)
+				.AddOtherLights(West);
+		}
+
+		private void WireUpNorth()
+		{
+			North.AddOtherLights(East)
+				.AddOtherLights(South)
+				.AddOtherLights(West);
+		}
+
+		private void InitializeTrafficLights(ITrafficLightFactory factory)
 		{
 			North = factory.Create(nameof(North));
 			East = factory.Create(nameof(East));
 			South = factory.Create(nameof(South));
 			West = factory.Create(nameof(West));
-
-			North.AddOtherLights(East);
-			North.AddOtherLights(South);
-			North.AddOtherLights(West);
-
-			East.AddOtherLights(North);
-			East.AddOtherLights(South);
-			East.AddOtherLights(West);
-
-			South.AddOtherLights(North);
-			South.AddOtherLights(East);
-			South.AddOtherLights(West);
-
-			West.AddOtherLights(North);
-			West.AddOtherLights(East);
-			West.AddOtherLights(South);
 		}
 
 		public async Task NorthToGreen()

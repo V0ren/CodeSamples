@@ -8,7 +8,7 @@ namespace StateMachine.Application
 		IState CurrentState { get;  }
 		IList<ITrafficLight> TrafficLights { get; }
 
-		void AddOtherLights(ITrafficLight otherLight);
+		ITrafficLight AddOtherLights(ITrafficLight otherLight);
 		void GoToGreen();
 		void GoToOrange();
 		void GoToRed();

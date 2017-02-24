@@ -12,25 +12,24 @@ namespace StateMachine
 		public static void Main(string[] args)
         {
 			ConfigureDependencyInjection();
-		
-			var junctionControl = ServiceCollection.BuildServiceProvider().GetRequiredService<IJunctionControl>();
-			var task = junctionControl.NorthToGreen();
-			Task.WaitAll(task);
-			task = junctionControl.NorthToRed();
-			Task.WaitAll(task);
-			task = junctionControl.EastToGreen();
-			Task.WaitAll(task);
-			task = junctionControl.EastToRed();
-			Task.WaitAll(task);
-			task = junctionControl.SouthToGreen();
-			Task.WaitAll(task);
-			task = junctionControl.WestToGreen();
+
+			var task = ExecuteTestScenario();
 			Task.WaitAll(task);
 			
 			Console.ReadLine();
 
 		}
 
+		private static async Task ExecuteTestScenario()
+		{
+			var junctionControl = ServiceCollection.BuildServiceProvider().GetRequiredService<IJunctionControl>();
+			await junctionControl.NorthToGreen();
+			await junctionControl.NorthToRed();
+			await junctionControl.EastToGreen();
+			await junctionControl.EastToRed();
+			await junctionControl.SouthToGreen();
+			await junctionControl.WestToGreen();
+		}
 		
 		private static void ConfigureDependencyInjection()
 		{

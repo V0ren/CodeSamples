@@ -64,9 +64,10 @@ namespace StateMachine.Application
 			Console.WriteLine($"The Trafic Light \"{Name}\" is currently: {CurrentState.ToString()}");
 		}
 
-		public void AddOtherLights(ITrafficLight otherLight)
+		public ITrafficLight AddOtherLights(ITrafficLight otherLight)
 		{
 			TrafficLights.Add(otherLight);
+			return this;
 		}
 	}
 }
