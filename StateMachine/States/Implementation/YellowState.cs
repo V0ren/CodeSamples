@@ -4,11 +4,11 @@ using StateMachine.Application;
 
 namespace StateMachine.States
 {
-	public class GreenState : StateBase
+	public class YellowState : StateBase
 	{
-		public static IState Instance = new GreenState();
+		public static IState Instance = new YellowState();
 
-		private GreenState() : base(ConsoleColor.Green)
+		private YellowState() : base(ConsoleColor.Yellow)
 		{
 		}
 
@@ -17,11 +17,12 @@ namespace StateMachine.States
 			switch (goToState)
 			{
 				case ConsoleColor.Green:
-					return this;
+					ValidateLights(trafficLights);
+					return GreenState.Instance;
 				case ConsoleColor.Yellow:
-					return YellowState.Instance;
+					return this;
 				case ConsoleColor.Red:
-					throw InvalidStateTransition(goToState);
+					return RedState.Instance;
 				default:
 					throw NotAnActualStateException(goToState);
 			}

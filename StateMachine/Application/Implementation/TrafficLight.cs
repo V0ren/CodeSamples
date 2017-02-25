@@ -31,19 +31,19 @@ namespace StateMachine.Application
 
 		public void GoToGreen()
 		{
-			TransitionTo(EnumStates.Green);
+			TransitionTo(ConsoleColor.Green);
 			DisplayCurrentStateOfLight();
 		}
 
-		public void GoToOrange()
+		public void GoToYellow()
 		{
-			TransitionTo(EnumStates.Orange);
+			TransitionTo(ConsoleColor.Yellow);
 			DisplayCurrentStateOfLight();
 		}
 
 		public void GoToRed()
 		{
-			TransitionTo(EnumStates.Red);
+			TransitionTo(ConsoleColor.Red);
 			DisplayCurrentStateOfLight();
 		}
 
@@ -53,9 +53,9 @@ namespace StateMachine.Application
 			return this;
 		}
 
-		private void TransitionTo(EnumStates type)
+		private void TransitionTo(ConsoleColor type)
 		{
-			Console.WriteLine($"The Trafic Light \"{Name}\" is transitioning from {CurrentState} to {type}");
+			Console.WriteLine($"The Trafic Light \"{Name}\" is transitioning from {CurrentState} to {type}!");
 			try
 			{
 				CurrentState = CurrentState.TransitionTo(type, TrafficLights);
@@ -75,7 +75,11 @@ namespace StateMachine.Application
 
 		private void DisplayCurrentStateOfLight()
 		{
-			Console.WriteLine($"The Trafic Light \"{Name}\" is currently: {CurrentState}");
+			Console.Write($"The Trafic Light \"{Name}\" is currently: ");
+			Console.ForegroundColor = CurrentState.Color;
+			Console.Write(CurrentState);
+			Console.ResetColor();
+			Console.WriteLine(".");
 		}
 	}
 }

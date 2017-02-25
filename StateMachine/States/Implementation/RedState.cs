@@ -8,23 +8,23 @@ namespace StateMachine.States
 	{
 		public static IState Instance = new RedState();
 
-		private RedState() : base(EnumStates.Red)
+		private RedState() : base(ConsoleColor.Red)
 		{
 		}
 
-		public override IState TransitionTo(EnumStates goToState, IList<ITrafficLight> trafficLights)
+		public override IState TransitionTo(ConsoleColor goToState, IList<ITrafficLight> trafficLights)
 		{
 			switch (goToState)
 			{
-				case EnumStates.Green:
+				case ConsoleColor.Green:
 					throw InvalidStateTransition(goToState);
-				case EnumStates.Orange:
+				case ConsoleColor.Yellow:
 					ValidateLights(trafficLights);
-					return OrangeState.Instance;
-				case EnumStates.Red:
+					return YellowState.Instance;
+				case ConsoleColor.Red:
 					return this;
 				default:
-					throw new Exception();
+					throw NotAnActualStateException(goToState);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ namespace StateMachine.Application
 
 		void GoToGreen();
 
-		void GoToOrange();
+		void GoToYellow();
 
 		void GoToRed();
 	}

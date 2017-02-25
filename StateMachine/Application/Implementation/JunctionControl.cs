@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace StateMachine.Application
 {
@@ -26,56 +26,56 @@ namespace StateMachine.Application
 
 		public async Task NorthToGreen()
 		{
-			North.GoToOrange();
+			North.GoToYellow();
 			await Task.Delay(1000);
 			North.GoToGreen();
 		}
 
 		public async Task EastToGreen()
 		{
-			East.GoToOrange();
+			East.GoToYellow();
 			await Task.Delay(1000);
 			East.GoToGreen();
 		}
 
 		public async Task SouthToGreen()
 		{
-			South.GoToOrange();
+			South.GoToYellow();
 			await Task.Delay(1000);
 			South.GoToGreen();
 		}
 
 		public async Task WestToGreen()
 		{
-			West.GoToOrange();
+			West.GoToYellow();
 			await Task.Delay(1000);
 			West.GoToGreen();
 		}
 
 		public async Task NorthToRed()
 		{
-			North.GoToOrange();
+			North.GoToYellow();
 			await Task.Delay(1000);
 			North.GoToRed();
 		}
 
 		public async Task EastToRed()
 		{
-			East.GoToOrange();
+			East.GoToYellow();
 			await Task.Delay(1000);
 			East.GoToRed();
 		}
 
 		public async Task SouthToRed()
 		{
-			South.GoToOrange();
+			South.GoToYellow();
 			await Task.Delay(1000);
 			South.GoToRed();
 		}
 
 		public async Task WestToRed()
 		{
-			West.GoToOrange();
+			West.GoToYellow();
 			await Task.Delay(1000);
 			West.GoToRed();
 		}

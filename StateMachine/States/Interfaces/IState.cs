@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StateMachine.Application;
 
 namespace StateMachine.States
 {
 	public interface IState
 	{
-		EnumStates Type { get; }
+		ConsoleColor Color { get; }
 
-		IState TransitionTo(EnumStates goToState, IList<ITrafficLight> trafficLights);
+		IState TransitionTo(ConsoleColor goToState, IList<ITrafficLight> trafficLights);
 	}
 }
