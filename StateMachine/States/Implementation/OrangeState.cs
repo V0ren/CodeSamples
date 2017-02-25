@@ -1,15 +1,14 @@
-﻿using StateMachine.Application;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using StateMachine.Application;
 
 namespace StateMachine.States
 {
-    public class RedState : StateBase
+	public class OrangeState : StateBase
 	{
-		public static IState Instance = new RedState();
+		public static IState Instance = new OrangeState();
 
-		private RedState() : base(EnumStates.Red)
+		private OrangeState() : base(EnumStates.Orange)
 		{
 		}
 
@@ -18,12 +17,12 @@ namespace StateMachine.States
 			switch (goToState)
 			{
 				case EnumStates.Green:
-					throw InvalidStateTransition(goToState);
-				case EnumStates.Orange:
 					ValidateLights(trafficLights);
-					return OrangeState.Instance;
-				case EnumStates.Red:
+					return GreenState.Instance;
+				case EnumStates.Orange:
 					return this;
+				case EnumStates.Red:
+					return RedState.Instance;
 				default:
 					throw new Exception();
 			}

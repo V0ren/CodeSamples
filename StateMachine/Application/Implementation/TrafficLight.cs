@@ -4,15 +4,9 @@ using StateMachine.States;
 
 namespace StateMachine.Application
 {
-    public class TrafficLight : ITrafficLight
-    {
-		public IState CurrentState { get; private set; }
-		private string Name { get; set; }
-
-		public IList<ITrafficLight> TrafficLights
-		{
-			get; private set;
-		}
+	public class TrafficLight : ITrafficLight
+	{
+		private string Name { get; }
 
 		public TrafficLight(string name)
 		{
@@ -22,8 +16,12 @@ namespace StateMachine.Application
 			DisplayCurrentStateOfLight();
 		}
 
+		public IState CurrentState { get; private set; }
+
+		public IList<ITrafficLight> TrafficLights { get; }
+
 		public void GoToGreen()
-		{		
+		{
 			TransitionTo(EnumStates.Green);
 			DisplayCurrentStateOfLight();
 		}
@@ -40,13 +38,20 @@ namespace StateMachine.Application
 			DisplayCurrentStateOfLight();
 		}
 
+		public ITrafficLight AddOtherLights(ITrafficLight otherLight)
+		{
+			TrafficLights.Add(otherLight);
+			return this;
+		}
+
 		private void TransitionTo(EnumStates type)
 		{
-			Console.WriteLine($"The Trafic Light \"{Name}\" is transitioning from {CurrentState.ToString()} to {type.ToString()}");
+			Console.WriteLine($"The Trafic Light \"{Name}\" is transitioning from {CurrentState} to {type}");
 			try
 			{
 				CurrentState = CurrentState.TransitionTo(type, TrafficLights);
-			} catch(InvalidOperationException exception)
+			}
+			catch (InvalidOperationException exception)
 			{
 				DisplayError(exception.Message);
 			}
@@ -61,13 +66,7 @@ namespace StateMachine.Application
 
 		private void DisplayCurrentStateOfLight()
 		{
-			Console.WriteLine($"The Trafic Light \"{Name}\" is currently: {CurrentState.ToString()}");
-		}
-
-		public ITrafficLight AddOtherLights(ITrafficLight otherLight)
-		{
-			TrafficLights.Add(otherLight);
-			return this;
+			Console.WriteLine($"The Trafic Light \"{Name}\" is currently: {CurrentState}");
 		}
 	}
 }

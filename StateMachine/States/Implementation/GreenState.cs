@@ -1,6 +1,6 @@
-﻿using StateMachine.Application;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using StateMachine.Application;
 
 namespace StateMachine.States
 {

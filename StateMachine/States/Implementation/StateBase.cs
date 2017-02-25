@@ -1,7 +1,7 @@
-﻿using StateMachine.Application;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using StateMachine.Application;
 
 namespace StateMachine.States
 {
@@ -13,6 +13,8 @@ namespace StateMachine.States
 		}
 
 		public EnumStates Type { get; set; }
+
+		public abstract IState TransitionTo(EnumStates goToState, IList<ITrafficLight> trafficLights);
 
 		public InvalidOperationException InvalidStateTransition(EnumStates goToType)
 		{
@@ -31,9 +33,5 @@ namespace StateMachine.States
 				throw new InvalidOperationException($"Cannot transition from the state {Type} because one the monitored lights is Green");
 			}
 		}
-
-		public abstract IState TransitionTo(EnumStates goToState, IList<ITrafficLight> trafficLights);
-
-
 	}
 }

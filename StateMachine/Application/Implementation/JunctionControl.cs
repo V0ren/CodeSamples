@@ -2,61 +2,19 @@
 
 namespace StateMachine.Application
 {
-    public class JunctionControl : IJunctionControl
-    {
+	public class JunctionControl : IJunctionControl
+	{
 		private ITrafficLight North { get; set; }
+
 		private ITrafficLight East { get; set; }
+
 		private ITrafficLight South { get; set; }
+
 		private ITrafficLight West { get; set; }
 
 		public JunctionControl(ITrafficLightFactory factory)
 		{
 			BootstrapJunction(factory);
-		}
-
-		private void BootstrapJunction(ITrafficLightFactory factory)
-		{
-			InitializeTrafficLights(factory);
-			WireUpNorth();
-			WireUpEast();
-			WireUpSouth();
-			WireUpWest();
-		}
-
-		private void WireUpWest()
-		{
-			West.AddOtherLights(North)
-				.AddOtherLights(East)
-				.AddOtherLights(South);
-		}
-
-		private void WireUpEast()
-		{
-			East.AddOtherLights(North)
-				.AddOtherLights(South)
-				.AddOtherLights(West);
-		}
-
-		private void WireUpSouth()
-		{
-			South.AddOtherLights(North)
-				.AddOtherLights(East)
-				.AddOtherLights(West);
-		}
-
-		private void WireUpNorth()
-		{
-			North.AddOtherLights(East)
-				.AddOtherLights(South)
-				.AddOtherLights(West);
-		}
-
-		private void InitializeTrafficLights(ITrafficLightFactory factory)
-		{
-			North = factory.Create(nameof(North));
-			East = factory.Create(nameof(East));
-			South = factory.Create(nameof(South));
-			West = factory.Create(nameof(West));
 		}
 
 		public async Task NorthToGreen()
@@ -113,6 +71,51 @@ namespace StateMachine.Application
 			West.GoToOrange();
 			await Task.Delay(1000);
 			West.GoToRed();
+		}
+
+		private void BootstrapJunction(ITrafficLightFactory factory)
+		{
+			InitializeTrafficLights(factory);
+			WireUpNorth();
+			WireUpEast();
+			WireUpSouth();
+			WireUpWest();
+		}
+
+		private void WireUpWest()
+		{
+			West.AddOtherLights(North)
+				.AddOtherLights(East)
+				.AddOtherLights(South);
+		}
+
+		private void WireUpEast()
+		{
+			East.AddOtherLights(North)
+				.AddOtherLights(South)
+				.AddOtherLights(West);
+		}
+
+		private void WireUpSouth()
+		{
+			South.AddOtherLights(North)
+				.AddOtherLights(East)
+				.AddOtherLights(West);
+		}
+
+		private void WireUpNorth()
+		{
+			North.AddOtherLights(East)
+				.AddOtherLights(South)
+				.AddOtherLights(West);
+		}
+
+		private void InitializeTrafficLights(ITrafficLightFactory factory)
+		{
+			North = factory.Create(nameof(North));
+			East = factory.Create(nameof(East));
+			South = factory.Create(nameof(South));
+			West = factory.Create(nameof(West));
 		}
 	}
 }

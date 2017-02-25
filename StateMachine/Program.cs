@@ -1,23 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using StateMachine.Application;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using StateMachine.Application;
 
 namespace StateMachine
 {
-    public class Program
-    {
+	public class Program
+	{
 		private static readonly ServiceCollection ServiceCollection = new ServiceCollection();
 
 		public static void Main(string[] args)
-        {
+		{
 			ConfigureDependencyInjection();
 
 			var task = ExecuteTestScenario();
 			Task.WaitAll(task);
-			
-			Console.ReadLine();
 
+			Console.ReadLine();
 		}
 
 		private static async Task ExecuteTestScenario()
@@ -30,7 +29,7 @@ namespace StateMachine
 			await junctionControl.SouthToGreen();
 			await junctionControl.WestToGreen();
 		}
-		
+
 		private static void ConfigureDependencyInjection()
 		{
 			ServiceCollection.AddSingleton<IJunctionControl, JunctionControl>();

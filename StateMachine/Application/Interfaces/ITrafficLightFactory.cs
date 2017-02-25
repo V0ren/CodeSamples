@@ -1,7 +1,7 @@
 ﻿namespace StateMachine.Application
 {
-    public interface ITrafficLightFactory
-    {
+	public interface ITrafficLightFactory
+	{
 		ITrafficLight Create(string name);
-    }
+	}
 }
