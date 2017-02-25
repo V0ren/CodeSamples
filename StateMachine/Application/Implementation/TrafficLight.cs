@@ -10,6 +10,15 @@ namespace StateMachine.Application
 
 		public TrafficLight(string name)
 		{
+			if (name == null)
+			{
+				throw new ArgumentNullException(nameof(name));
+			}
+			if (name == null)
+			{
+				throw new ArgumentNullException(nameof(name));
+			}
+
 			Name = name;
 			TrafficLights = new List<ITrafficLight>();
 			CurrentState = RedState.Instance;
@@ -57,7 +66,7 @@ namespace StateMachine.Application
 			}
 		}
 
-		private void DisplayError(string message)
+		private static void DisplayError(string message)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine(message);

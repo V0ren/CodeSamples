@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using StateMachine.Application;
+using StateMachine.Application.Factories;
 
 namespace StateMachine
 {
@@ -21,7 +21,11 @@ namespace StateMachine
 
 		private static async Task ExecuteTestScenario()
 		{
-			var junctionControl = ServiceCollection.BuildServiceProvider().GetRequiredService<IJunctionControl>();
+			var junctionControlFactory = ServiceCollection
+				.BuildServiceProvider()
+				.GetRequiredService<IJunctionControlFactory>();
+			var junctionControl = junctionControlFactory.Create();
+
 			await junctionControl.NorthToGreen();
 			await junctionControl.NorthToRed();
 			await junctionControl.EastToGreen();
@@ -32,7 +36,7 @@ namespace StateMachine
 
 		private static void ConfigureDependencyInjection()
 		{
-			ServiceCollection.AddSingleton<IJunctionControl, JunctionControl>();
+			ServiceCollection.AddSingleton<IJunctionControlFactory, JunctionControlFactory>();
 			ServiceCollection.AddSingleton<ITrafficLightFactory, TrafficLightFactory>();
 		}
 	}

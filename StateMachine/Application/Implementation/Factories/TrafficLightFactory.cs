@@ -1,4 +1,4 @@
-﻿namespace StateMachine.Application
+﻿namespace StateMachine.Application.Factories
 {
 	public class TrafficLightFactory : ITrafficLightFactory
 	{
